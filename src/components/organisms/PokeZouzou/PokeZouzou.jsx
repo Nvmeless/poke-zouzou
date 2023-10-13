@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import pokeapi from "../../../toolkit/api.config";
 import { PokeZouzouSprite } from "../../atoms";
-const PokeZouzou = ({ id }) => {
+import { styled } from "styled-components";
+
+const PokeSprite = styled.img`
+  height: 100px;
+`;
+
+const PokeZouzou = ({ id, id_twice = 132 }) => {
   const [DataIsLoaded, setDataIsLoaded] = useState(false);
   const [lastCall, setLastCall] = useState({});
   const get = () => {
@@ -18,6 +24,9 @@ const PokeZouzou = ({ id }) => {
         console.error(err);
       });
   };
+  const sagerLink = () => {
+    return `https://images.alexonsager.net/pokemon/fused/${id}/${id}.${id_twice}.png`;
+  };
   useEffect(() => {
     get();
   }, []);
@@ -28,8 +37,9 @@ const PokeZouzou = ({ id }) => {
   };
   return DataIsLoaded ? (
     <div>
-      <img src={getSprite().back_shiny} />
-      <img src={getSprite().front_shiny} />
+      <PokeSprite src={getSprite().back_shiny} />
+      <PokeSprite src={sagerLink()} />
+      {/* <img src={getSprite().front_shiny} /> */}
     </div>
   ) : (
     <div>Loading..</div>

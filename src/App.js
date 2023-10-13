@@ -8,6 +8,7 @@ import { Button, TextP, Card } from "./components/atoms";
 import { Header, Menu } from "./components/organisms";
 import Clock from "./components/atoms/Clock";
 import PokeZouzou from "./components/organisms/PokeZouzou/PokeZouzou";
+import Todo from "./components/molecules/Todo/Todo";
 function App() {
   const [displayContent, setDisplayContent] = useState("Accueil");
   // const callbackMenu = () => {
@@ -67,10 +68,11 @@ function App() {
         <Card>Hello</Card>
         {/* <PokezouzouApi id={132} /> */}
 
-        <PokeZouzou id={132}></PokeZouzou>
-        <PokeZouzou id={4}></PokeZouzou>
-        <PokeZouzou id={151}></PokeZouzou>
+        {/* <PokeZouzou id={132}></PokeZouzou> */}
+        {/* <PokeZouzou id={4}></PokeZouzou> */}
+        <PokeZouzou id={151} id_twice={150}></PokeZouzou>
         <div>{content}</div>
+        <Todo></Todo>
       </>
     </div>
   );
