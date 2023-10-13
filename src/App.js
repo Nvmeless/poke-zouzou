@@ -8,7 +8,6 @@ import { Button, TextP, Card } from "./components/atoms";
 import { Header, Menu } from "./components/organisms";
 import Clock from "./components/atoms/Clock";
 import PokeZouzou from "./components/organisms/PokeZouzou/PokeZouzou";
-import PokezouzouApi from "./toolkit/PokezouzouApi";
 function App() {
   const [displayContent, setDisplayContent] = useState("Accueil");
   // const callbackMenu = () => {
