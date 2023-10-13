@@ -1,103 +1,37 @@
-import React, { useState } from "react";
-
-const Todo = () => {
-  const [tasks, setTasks] = useState([
-    { id: 12, title: "Se Calcifier la glande pinéale", isDone: false },
-    { id: 4, title: "Se Calcifier la glande pinéale", isDone: false },
-    { id: 13, title: "Se Calcifier la glande pinéale", isDone: false },
-    { id: 11, title: "Se Calcifier la glande pinéale", isDone: false },
-  ]);
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTask, deleteTask, addTask } from "../../../store";
+export const Todo = () => {
   const [inputValue, setInputValue] = useState("Nouvelle Tache");
-  const addTask = (taskName) => {
-    const newTask = {
-      id: Date.now(),
-      title: taskName,
-      isDone: false,
-    };
-    setTasks([...tasks, newTask]);
-  };
-  const deleteTask = (id) => {
-    const filteredTasks = tasks.filter((task) => {
-      return task.id !== id;
-    });
-    setTasks(filteredTasks);
-  };
-  const findById = (id) => {
-    return {
-      realTask: tasks.find((task) => task.id === id),
-      index: tasks.findIndex((task) => task.id === id),
-    };
-  };
-  const getCopyById = (id) => {
-    const { realTask, index } = findById(id);
+  const dispatch = useDispatch();
 
-    const taskCopy = { ...realTask };
-    const taskListCopy = [...tasks];
+  const tasks = useSelector((state) => {
+    console.log(state.todoList);
 
-    return {
-      realTask: realTask,
-      index: index,
-      taskCopy: taskCopy,
-      taskListCopy: taskListCopy,
-    };
-  };
-
-  const executeById = (id, callback, payload = {}) => {
-    const { index, taskCopy, taskListCopy } = getCopyById(id);
-    const copy = callback(taskCopy, payload);
-
-    taskListCopy[index] = copy;
-    return taskListCopy;
-  };
-  const toggleTask = (id) => {
-    // let taskListCopy = executeById(id, (copy) => {
-    //   copy.isDone = !copy.isDone;
-    //   return copy;
-    // });
-    // setTasks(taskListCopy);
-    const taskListCopy = executeById(
-      id,
-      (copy, payload) => {
-        copy.isDone = true;
-        return copy;
-      },
-      { textModified: inputValue }
-    );
-    setTasks(taskListCopy);
-  };
-  const updateTask = (id) => {
-    // let taskListCopy = executeById(id, (copy) => {
-    //   copy.isDone = !copy.isDone;
-    //   return copy;
-    // });
-    // setTasks(taskListCopy);
-    const taskListCopy = executeById(
-      id,
-      (copy, payload) => {
-        copy.title = payload.textModified + "Modifié";
-        return copy;
-      },
-      { textModified: inputValue }
-    );
-    setTasks(taskListCopy);
-  };
+    return state.todoList;
+  });
   const renderTasks = () => {
-    return tasks.map((task) => {
-      return (
-        <div>
-          <span onClick={() => toggleTask(task.id)}>
-            {task.isDone ? "Fait" : "Pas fait"}
-          </span>{" "}
-          - {task.title} <span onClick={() => deleteTask(task.id)}>X</span>{" "}
-        </div>
-      );
-    });
+    return tasks
+      ? tasks.map((task) => {
+          return (
+            <div>
+              <span onClick={() => dispatch(toggleTask(task.id))}>
+                {task.isDone ? "Fait" : "Pas fait"}
+              </span>{" "}
+              - {task.title}{" "}
+              <span onClick={() => dispatch(deleteTask(task.id))}>X</span>{" "}
+            </div>
+          );
+        })
+      : "Tout est fait !";
   };
+
   const onInputChange = (event, value) => {
-    if (value !== inputValue) {
+    if (value != inputValue) {
       setInputValue(value);
     }
   };
+
   return (
     <div>
       {renderTasks()}
@@ -108,7 +42,7 @@ const Todo = () => {
       />
       <button
         onClick={() => {
-          addTask(inputValue);
+          dispatch(addTask(inputValue));
         }}
       >
         Nouvelle Tache

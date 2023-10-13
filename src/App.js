@@ -52,7 +52,7 @@ function App() {
   return (
     <div className="App">
       <>
-        {/* <Header username="Jinn"></Header> */}
+        <Header username="Jinn"></Header>
         {/* <Header username="Jinn" icon={<FcBiomass />}></Header> */}
         {/* <TextP>
           L'application n'est pas encore en production, elle en est meme aux
@@ -60,20 +60,20 @@ function App() {
         </TextP> */}
         {/* <Button action={() => handleMenu("Time")} buttonTitle="Time"></Button> */}
         {/* <Button action={() => handleMenu("Home")} buttonTitle="Home"></Button> */}
-        {/* <Menu */}
-        {/* menus={[ */}
-        {/* { title: "Juli", uri: "lezgo", icon: <CiLemon></CiLemon> }, */}
-        {/* { title: "Lezgi", uri: "lezgo", icon: <CiApple></CiApple> }, */}
-        {/* { title: "Juli", uri: "lezgo", icon: <CiAvocado></CiAvocado> }, */}
-        {/* { title: "Lezgi", uri: "lezgo", icon: <CiBacon></CiBacon> }, */}
-        {/* ]} */}
-        {/* ></Menu> */}
-        {/* <Card>Hello</Card> */}
+        <Menu
+          menus={[
+            { title: "Juli", uri: "lezgo", icon: <CiLemon></CiLemon> },
+            { title: "Lezgi", uri: "lezgo", icon: <CiApple></CiApple> },
+            { title: "Juli", uri: "lezgo", icon: <CiAvocado></CiAvocado> },
+            { title: "Lezgi", uri: "lezgo", icon: <CiBacon></CiBacon> },
+          ]}
+        ></Menu>
+        {/*<Card>Hello</Card> */}
         {/* <PokezouzouApi id={132} /> */}
 
         {/* <PokeZouzou id={132}></PokeZouzou> */}
         {/* <PokeZouzou id={4}></PokeZouzou> */}
-        {new Array(151).fill(0).map((e, i) => (
+        {new Array(2).fill(0).map((e, i) => (
           <PokeZouzou id={i} id_twice={150}></PokeZouzou>
         ))}
         {/* <PokeZouzou id={151} id_twice={150}></PokeZouzou> */}

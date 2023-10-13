@@ -4,7 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "styled-components";
-
+import { Provider } from "react-redux";
+import { store } from "./store/index";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const providedThemeDay = {
   color: {
@@ -18,11 +19,11 @@ const providedThemeNight = {
 };
 
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <ThemeProvider theme={providedThemeNight}>
       <App />
     </ThemeProvider>
-  </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
