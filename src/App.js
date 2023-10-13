@@ -46,6 +46,9 @@ function App() {
   const handleMenu = (name) => {
     setDisplayContent(name);
   };
+  new Array(151).fill(0).map((e, i) => {
+    console.log(i);
+  });
   return (
     <div className="App">
       <>
@@ -55,22 +58,25 @@ function App() {
           L'application n'est pas encore en production, elle en est meme aux
           fondations soyez indulgent alors !
         </TextP> */}
-        <Button action={() => handleMenu("Time")} buttonTitle="Time"></Button>
-        <Button action={() => handleMenu("Home")} buttonTitle="Home"></Button>
-        <Menu
-          menus={[
-            { title: "Juli", uri: "lezgo", icon: <CiLemon></CiLemon> },
-            { title: "Lezgi", uri: "lezgo", icon: <CiApple></CiApple> },
-            { title: "Juli", uri: "lezgo", icon: <CiAvocado></CiAvocado> },
-            { title: "Lezgi", uri: "lezgo", icon: <CiBacon></CiBacon> },
-          ]}
-        ></Menu>
-        <Card>Hello</Card>
+        {/* <Button action={() => handleMenu("Time")} buttonTitle="Time"></Button> */}
+        {/* <Button action={() => handleMenu("Home")} buttonTitle="Home"></Button> */}
+        {/* <Menu */}
+        {/* menus={[ */}
+        {/* { title: "Juli", uri: "lezgo", icon: <CiLemon></CiLemon> }, */}
+        {/* { title: "Lezgi", uri: "lezgo", icon: <CiApple></CiApple> }, */}
+        {/* { title: "Juli", uri: "lezgo", icon: <CiAvocado></CiAvocado> }, */}
+        {/* { title: "Lezgi", uri: "lezgo", icon: <CiBacon></CiBacon> }, */}
+        {/* ]} */}
+        {/* ></Menu> */}
+        {/* <Card>Hello</Card> */}
         {/* <PokezouzouApi id={132} /> */}
 
         {/* <PokeZouzou id={132}></PokeZouzou> */}
         {/* <PokeZouzou id={4}></PokeZouzou> */}
-        <PokeZouzou id={151} id_twice={150}></PokeZouzou>
+        {new Array(151).fill(0).map((e, i) => (
+          <PokeZouzou id={i} id_twice={150}></PokeZouzou>
+        ))}
+        {/* <PokeZouzou id={151} id_twice={150}></PokeZouzou> */}
         <div>{content}</div>
         <Todo></Todo>
       </>

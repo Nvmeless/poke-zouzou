@@ -37,7 +37,7 @@ const PokeZouzou = ({ id, id_twice = 132 }) => {
   };
   return DataIsLoaded ? (
     <div>
-      <PokeSprite src={getSprite().back_shiny} />
+      <PokeSprite src={getSprite()?.back_default} />
       <PokeSprite src={sagerLink()} />
       {/* <img src={getSprite().front_shiny} /> */}
     </div>
