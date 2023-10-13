@@ -2,8 +2,13 @@ import logo from "./logo.svg";
 import "./App.css";
 import React, { useState } from "react";
 //Atoms
-import { Button, TextP } from "./components/atoms";
+import { FaUser } from "react-icons/fa";
+import { CiAvocado, CiLemon, CiApple, CiBacon } from "react-icons/ci";
+import { Button, TextP, Card } from "./components/atoms";
 import { Header, Menu } from "./components/organisms";
+import Clock from "./components/atoms/Clock";
+import PokeZouzou from "./components/organisms/PokeZouzou/PokeZouzou";
+import PokezouzouApi from "./toolkit/PokezouzouApi";
 function App() {
   const [displayContent, setDisplayContent] = useState("Accueil");
   // const callbackMenu = () => {
@@ -21,11 +26,19 @@ function App() {
   // ];
   let content = <></>;
   switch (displayContent) {
-    case "Accueuil":
-      content = <span>Accueuil</span>;
+    case "Time":
+      content = (
+        <span>
+          <Clock></Clock>
+        </span>
+      );
       break;
     case "Home":
-      content = <span>Home</span>;
+      content = (
+        <span>
+          <FaUser />
+        </span>
+      );
       break;
     default:
       content = <></>;
@@ -42,21 +55,22 @@ function App() {
           L'application n'est pas encore en production, elle en est meme aux
           fondations soyez indulgent alors !
         </TextP> */}
-        <Button
-          action={() => handleMenu("Acceuil")}
-          buttonTitle="Accueil"
-        ></Button>
+        <Button action={() => handleMenu("Time")} buttonTitle="Time"></Button>
         <Button action={() => handleMenu("Home")} buttonTitle="Home"></Button>
         <Menu
-          menus={
-            [
-              // { title: "Juli", uri: "lezgo", icon: <CiLemon></CiLemon> },
-              // { title: "Lezgi", uri: "lezgo", icon: <CiApple></CiApple> },
-              // { title: "Juli", uri: "lezgo", icon: <CiAvocado></CiAvocado> },
-              // { title: "Lezgi", uri: "lezgo", icon: <CiBacon></CiBacon> },
-            ]
-          }
+          menus={[
+            { title: "Juli", uri: "lezgo", icon: <CiLemon></CiLemon> },
+            { title: "Lezgi", uri: "lezgo", icon: <CiApple></CiApple> },
+            { title: "Juli", uri: "lezgo", icon: <CiAvocado></CiAvocado> },
+            { title: "Lezgi", uri: "lezgo", icon: <CiBacon></CiBacon> },
+          ]}
         ></Menu>
+        <Card>Hello</Card>
+        {/* <PokezouzouApi id={132} /> */}
+
+        <PokeZouzou id={132}></PokeZouzou>
+        <PokeZouzou id={4}></PokeZouzou>
+        <PokeZouzou id={151}></PokeZouzou>
         <div>{content}</div>
       </>
     </div>
