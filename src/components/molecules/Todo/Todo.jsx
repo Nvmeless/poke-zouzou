@@ -6,15 +6,13 @@ export const Todo = () => {
   const dispatch = useDispatch();
 
   const tasks = useSelector((state) => {
-    console.log(state.todoList);
-
     return state.todoList;
   });
   const renderTasks = () => {
     return tasks
-      ? tasks.map((task) => {
+      ? tasks.map((task, i) => {
           return (
-            <div>
+            <div key={i}>
               <span onClick={() => dispatch(toggleTask(task.id))}>
                 {task.isDone ? "Fait" : "Pas fait"}
               </span>{" "}

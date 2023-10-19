@@ -1,45 +1,44 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import pokeapi from "../../../toolkit/api.config";
-import { PokeZouzouSprite } from "../../atoms";
 import { styled } from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchPokedex } from "../../../store";
 
 const PokeSprite = styled.img`
   height: 100px;
 `;
 
-const PokeZouzou = ({ id, id_twice = 132 }) => {
-  const [DataIsLoaded, setDataIsLoaded] = useState(false);
-  const [lastCall, setLastCall] = useState({});
-  const get = () => {
-    axios(pokeapi("get", `pokemon/${id}`))
-      .then((response) => {
-        setDataIsLoaded(true);
-        setLastCall(response);
-        // console.log(response);
-      })
-      .catch((err) => {
-        setDataIsLoaded(true);
+const PokeZouzou = ({ id, id_twice = false }) => {
+  const dispatch = useDispatch();
 
-        console.error(err);
-      });
-  };
+  const pokedex = useSelector((state) => {
+    console.log(state);
+    return state.pokedex;
+  });
+  const [success, setSuccess] = useState(pokedex.status);
+
+  useEffect(() => {
+    // console.log("POKEDEX", pokedex.pokedex[id]);
+    setSuccess(pokedex.pokedex[id - 1].status);
+  }, [pokedex.pokedex[id - 1].status, id]);
+
+  useEffect(() => {
+    dispatch(fetchPokedex(id));
+    if (id_twice) {
+      dispatch(fetchPokedex(id_twice));
+    }
+  }, [id, id_twice]);
+
   const sagerLink = () => {
     return `https://images.alexonsager.net/pokemon/fused/${id}/${id}.${id_twice}.png`;
   };
-  useEffect(() => {
-    get();
-  }, []);
-  const getSprite = () => {
-    if (DataIsLoaded && 200 == lastCall.status) {
-      return lastCall.data.sprites;
-    }
-  };
-  return DataIsLoaded ? (
+
+  return success === "succeed" ? (
     <div>
-      <PokeSprite src={getSprite()?.back_default} />
+      {pokedex?.pokedex[id - 1]?.id}
+      <PokeSprite src={pokedex?.pokedex[id - 1].sprites?.back_default} />
+      <PokeSprite src={pokedex?.pokedex[id - 1].sprites?.front_default} />
+      {pokedex?.pokedex[id - 1].name}
       <PokeSprite src={sagerLink()} />
-      {/* <img src={getSprite().front_shiny} /> */}
     </div>
   ) : (
     <div>Loading..</div>

@@ -15,7 +15,6 @@ const todoSlice = createSlice({
   initialState: initialState,
   reducers: {
     addTask: (state, action) => {
-      console.log(action);
       //action = {type: "ADD_NEW_TASK", payload: "New task"}
       const newTask = {
         id: Date.now(),
@@ -37,37 +36,46 @@ const todoSlice = createSlice({
     },
   },
 });
-const pokeSlice = createSlice({
-  name: "pokezouzou",
+const pokeApiSlice = createSlice({
+  name: "pokedex",
   initialState: {
-    pokezouzou: [],
+    pokedex: new Array(150).fill(0).map((e, i) => ({
+      id: i + 1,
+      status: "idle",
+    })),
     status: "idle",
     error: null,
   },
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchPokezouzou.pending, (state, action) => {
-        console.log("Pending");
+      .addCase(fetchPokedex.pending, (state, action) => {
         state.status = "loading";
-        console.log("loading case");
       })
-      .addCase(fetchPokezouzou.fulfilled, (state, action) => {
+      .addCase(fetchPokedex.fulfilled, (state, action) => {
         state.status = "succeed";
-        state.pokezouzou = action.payload;
-        console.log("success case");
+        if (action.payload?.id) {
+          const pokefiche = {
+            id: action.payload?.id,
+            name: action.payload?.name,
+            sprites: action.payload?.sprites,
+            status: "succeed",
+          };
+          state.pokedex[pokefiche.id - 1] = pokefiche;
+        } else {
+          state.error = "Last Pokemon was not imported";
+        }
       })
-      .addCase(fetchPokezouzou.rejected, (state, action) => {
+      .addCase(fetchPokedex.rejected, (state, action) => {
         state.status = "failed";
-        console.log("Failed case");
       });
   },
 });
 
-export const fetchPokezouzou = createAsyncThunk(
+export const fetchPokedex = createAsyncThunk(
   "pokemon/fetch",
   async (payload) => {
-    const config = pokeapi("get", "pokemon/132");
+    const config = pokeapi("get", `pokemon/${payload}`);
     const response = await axios(config)
       .then((res) => {
         return res;
@@ -75,13 +83,14 @@ export const fetchPokezouzou = createAsyncThunk(
       .catch((err) => {
         return err;
       });
+
     return response.data;
   }
 );
 export const store = configureStore({
   reducer: {
     todoList: todoSlice.reducer,
-    pokezouzou: pokeSlice.reducer,
+    pokedex: pokeApiSlice.reducer,
   },
 });
 

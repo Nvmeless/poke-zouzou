@@ -11,6 +11,12 @@ import PokeZouzou from "./components/organisms/PokeZouzou/PokeZouzou";
 import Todo from "./components/molecules/Todo/Todo";
 function App() {
   const [displayContent, setDisplayContent] = useState("Accueil");
+  const [inputValue, setInputValue] = useState();
+  const onInputChange = (event, value) => {
+    if (value != inputValue) {
+      setInputValue(value);
+    }
+  };
   // const callbackMenu = () => {
   //   console.log("Menu clicked");
   // };
@@ -47,8 +53,9 @@ function App() {
     setDisplayContent(name);
   };
   new Array(151).fill(0).map((e, i) => {
-    console.log(i);
+    //
   });
+
   return (
     <div className="App">
       <>
@@ -70,12 +77,16 @@ function App() {
         ></Menu>
         {/*<Card>Hello</Card> */}
         {/* <PokezouzouApi id={132} /> */}
-
         {/* <PokeZouzou id={132}></PokeZouzou> */}
         {/* <PokeZouzou id={4}></PokeZouzou> */}
-        {new Array(2).fill(0).map((e, i) => (
-          <PokeZouzou id={i} id_twice={150}></PokeZouzou>
+        {new Array(150).fill(0).map((e, i) => (
+          <PokeZouzou key={i} id={i + 1} id_twice={inputValue}></PokeZouzou>
         ))}
+        <input
+          onChange={(e) => {
+            onInputChange(e, e.target.value);
+          }}
+        />
         {/* <PokeZouzou id={151} id_twice={150}></PokeZouzou> */}
         <div>{content}</div>
         <Todo></Todo>
