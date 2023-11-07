@@ -80,7 +80,11 @@ function App() {
         {/* <PokeZouzou id={132}></PokeZouzou> */}
         {/* <PokeZouzou id={4}></PokeZouzou> */}
         {new Array(150).fill(0).map((e, i) => (
-          <PokeZouzou key={i} id={i + 1} id_twice={inputValue}></PokeZouzou>
+          <PokeZouzou
+            key={i}
+            id={i + 1}
+            id_twice={inputValue ?? i + 1}
+          ></PokeZouzou>
         ))}
         <input
           onChange={(e) => {
