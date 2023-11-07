@@ -12,8 +12,8 @@ import Todo from "./components/molecules/Todo/Todo";
 function App() {
   const [displayContent, setDisplayContent] = useState("Accueil");
   const [inputValue, setInputValue] = useState();
-  const onInputChange = (event, value) => {
-    if (value != inputValue) {
+  const onInputTwiceChange = (event, value) => {
+    if (value !== inputValue) {
       setInputValue(value);
     }
   };
@@ -75,12 +75,10 @@ function App() {
             { title: "Lezgi", uri: "lezgo", icon: <CiBacon></CiBacon> },
           ]}
         ></Menu>
-        {/*<Card>Hello</Card> */}
-        {/* <PokezouzouApi id={132} /> */}
-        {/* <PokeZouzou id={132}></PokeZouzou> */}
-        {/* <PokeZouzou id={4}></PokeZouzou> */}
         {new Array(150).fill(0).map((e, i) => (
           <PokeZouzou
+            changeInput={onInputTwiceChange}
+            changeInput_Twice={onInputTwiceChange}
             key={i}
             id={i + 1}
             id_twice={inputValue ?? i + 1}
@@ -88,10 +86,9 @@ function App() {
         ))}
         <input
           onChange={(e) => {
-            onInputChange(e, e.target.value);
+            onInputTwiceChange(e, e.target.value);
           }}
         />
-        {/* <PokeZouzou id={151} id_twice={150}></PokeZouzou> */}
         <div>{content}</div>
         <Todo></Todo>
       </>
