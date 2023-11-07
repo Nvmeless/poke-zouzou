@@ -2,97 +2,67 @@ import logo from "./logo.svg";
 import "./App.css";
 import React, { useState } from "react";
 //Atoms
-import { FaUser } from "react-icons/fa";
 import { CiAvocado, CiLemon, CiApple, CiBacon } from "react-icons/ci";
-import { Button, TextP, Card } from "./components/atoms";
 import { Header, Menu } from "./components/organisms";
-import Clock from "./components/atoms/Clock";
-import PokeZouzou from "./components/organisms/PokeZouzou/PokeZouzou";
-import Todo from "./components/molecules/Todo/Todo";
+import { Home, Fight, Team, Capture } from "./components/pages";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 function App() {
-  const [displayContent, setDisplayContent] = useState("Accueil");
-  const [inputValue, setInputValue] = useState();
-  const onInputTwiceChange = (event, value) => {
-    if (value !== inputValue) {
-      setInputValue(value);
-    }
-  };
-  // const callbackMenu = () => {
-  //   console.log("Menu clicked");
-  // };
-  // const menu = [
-  //   {
-  //     label: "Home",
-  //     action: callbackMenu,
-  //   },
-  //   {
-  //     label: "Blog",
-  //     action: callbackMenu,
-  //   },
-  // ];
-  let content = <></>;
-  switch (displayContent) {
-    case "Time":
-      content = (
-        <span>
-          <Clock></Clock>
-        </span>
-      );
-      break;
-    case "Home":
-      content = (
-        <span>
-          <FaUser />
-        </span>
-      );
-      break;
-    default:
-      content = <></>;
-  }
-  const handleMenu = (name) => {
-    setDisplayContent(name);
-  };
-  new Array(151).fill(0).map((e, i) => {
-    //
-  });
-
   return (
-    <div className="App">
-      <>
+    <Router>
+      <div className="App">
         <Header username="Jinn"></Header>
-        {/* <Header username="Jinn" icon={<FcBiomass />}></Header> */}
-        {/* <TextP>
-          L'application n'est pas encore en production, elle en est meme aux
-          fondations soyez indulgent alors !
-        </TextP> */}
-        {/* <Button action={() => handleMenu("Time")} buttonTitle="Time"></Button> */}
-        {/* <Button action={() => handleMenu("Home")} buttonTitle="Home"></Button> */}
         <Menu
           menus={[
-            { title: "Juli", uri: "lezgo", icon: <CiLemon></CiLemon> },
-            { title: "Lezgi", uri: "lezgo", icon: <CiApple></CiApple> },
-            { title: "Juli", uri: "lezgo", icon: <CiAvocado></CiAvocado> },
-            { title: "Lezgi", uri: "lezgo", icon: <CiBacon></CiBacon> },
+            {
+              icon: (
+                <>
+                  <Link to="capture">
+                    <CiLemon></CiLemon>CAPUTRE
+                  </Link>
+                </>
+              ),
+            },
+            {
+              icon: (
+                <>
+                  <Link to="team">
+                    <CiApple></CiApple>TEAM
+                  </Link>
+                </>
+              ),
+            },
+            {
+              icon: (
+                <>
+                  <Link to="home">
+                    <CiAvocado></CiAvocado>
+                    HOME
+                  </Link>
+                </>
+              ),
+            },
+            {
+              icon: (
+                <>
+                  <Link to="fight">
+                    <CiBacon></CiBacon>
+                    FIGHT
+                  </Link>
+                </>
+              ),
+            },
           ]}
         ></Menu>
-        {new Array(150).fill(0).map((e, i) => (
-          <PokeZouzou
-            changeInput={onInputTwiceChange}
-            changeInput_Twice={onInputTwiceChange}
-            key={i}
-            id={i + 1}
-            id_twice={inputValue ?? i + 1}
-          ></PokeZouzou>
-        ))}
-        <input
-          onChange={(e) => {
-            onInputTwiceChange(e, e.target.value);
-          }}
-        />
-        <div>{content}</div>
-        <Todo></Todo>
-      </>
-    </div>
+
+        <Routes>
+          <Route path="/" element={<Home></Home>}></Route>
+          <Route path="/home" element={<Home></Home>}></Route>
+          <Route path="/team" element={<Team></Team>}></Route>
+          <Route path="/capture" element={<Capture></Capture>}></Route>
+          <Route path="/fight" element={<Fight></Fight>}></Route>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

@@ -1,7 +1,11 @@
 import React from "react";
+import styled from "styled-components";
 
+const StyledMenuBar = styled.nav`
+  background-color: blue;
+`;
 const MenuBar = (props) => {
-  return <nav>{props.children}</nav>;
+  return <StyledMenuBar>{props.children}</StyledMenuBar>;
 };
 
 export default MenuBar;
