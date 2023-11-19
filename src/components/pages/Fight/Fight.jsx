@@ -64,6 +64,13 @@ const Fight = () => {
     const config = apiZouzoumon("post", "fight", {}, user.token);
     axios(config)
       .then((response) => {
+        dispatch(
+          addMessage({
+            from: "security",
+            title: "Battle Agent",
+            content: "Opponent found !",
+          })
+        );
         setDatas(response.data);
       })
       .catch((error) => {
