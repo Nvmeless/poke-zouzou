@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../../../store";
-import { TeamInventory } from "../../molecules";
 import { apiZouzoumon } from "../../../toolkit/api.config";
 import axios from "axios";
 import { Button } from "../../atoms";
+import { TeamInventory } from "../../molecules";
+import { Battle } from "../../organisms";
 import styled from "styled-components";
 
 const StyledFightContainer = styled.div`
@@ -82,8 +83,7 @@ const Fight = () => {
     <StyledFightContainer>
       {battleView ? (
         <>
-          <TeamInventory items={attack.teams.monsters}></TeamInventory>
-          <TeamInventory items={oponent.teams.monsters}></TeamInventory>
+          <Battle attack={attack} oponent={oponent}></Battle>
         </>
       ) : (
         <Button buttonTitle="Search Battle !" action={startBattle}></Button>

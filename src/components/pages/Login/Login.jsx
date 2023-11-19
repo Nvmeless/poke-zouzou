@@ -15,9 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => {
     if (state.user.auth) {
-      if (state.user.auth) {
-        return navigate("/profile");
-      }
+      return navigate("/profile");
     }
     return state.user;
   });
