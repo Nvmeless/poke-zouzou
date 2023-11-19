@@ -1,9 +1,10 @@
-.button {
-  background-color: red;
-  color: Blue;
-  padding: 1rem;
+.menuButton {
+  /* padding: 1rem; */
+  /* list-style: none;
+  justify-content: center;
+  align-items: center; */
 }
 .button:hover {
-  background-color: black;
+  background-color: rgb(88, 88, 88);
   color: white;
 }

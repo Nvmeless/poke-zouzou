@@ -1,11 +1,19 @@
 import React from "react";
-
+import styled from "styled-components";
 //INTERNAL IMPORT
 import Style from "./Button.module.css";
-import { Link } from "react-router-dom";
-
+const StyledMenuButton = styled.nav`
+  ${"" /* background-color: pink; */}
+  height: 100%;
+`;
 const MenuButton = (props, { title, uri }) => {
-  return <li className={Style.menuButton}>{props.children}</li>;
+  return (
+    <span className="nes-pointer">
+      <StyledMenuButton className={Style.button}>
+        {props.children}
+      </StyledMenuButton>
+    </span>
+  );
 };
 
 export default MenuButton;

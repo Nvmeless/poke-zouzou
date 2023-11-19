@@ -5,27 +5,21 @@ import styled from "styled-components";
 const hRem = 3;
 
 const StyledMenu = styled.ul`
+  margin: 0;
   display: flex;
-  height: 3rem;
-  background-color: red;
-  padding: 1rem;
+  justify-content: space-between;
+  ${"" /* background-color: red; */}
+  height: 100%;
+  display: block;
 `;
 const StyledMenuButton = styled.ul`
-  width: 3rem;
-  height: 3rem;
-  background-color: pink;
+  height: 100%;
 `;
 const Menu = ({ menus }) => {
-  // const pokezouzou = useSelector((state) => {
-  //   console.log("STATE", state);
-  //   return state.pokedex;
-  // });
-  // const [DataIsLoaded, setDataIsLoaded] = useState(pokezouzou.status);
-
   const makeMenu = () => {
     return menus.map((menu, i) => {
       return (
-        <StyledMenuButton>
+        <StyledMenuButton key={i}>
           <MenuButton key={i} uri={menu.uri}>
             {menu.icon ? menu.icon : menu.title}
           </MenuButton>
@@ -34,11 +28,7 @@ const Menu = ({ menus }) => {
     });
   };
 
-  return (
-    <MenuBar>
-      <StyledMenu>{makeMenu(menus)}</StyledMenu>
-    </MenuBar>
-  );
+  return <MenuBar menu={<StyledMenu>{makeMenu(menus)}</StyledMenu>}></MenuBar>;
 };
 
 export default Menu;
